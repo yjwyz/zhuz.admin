@@ -1,0 +1,2484 @@
+{
+	"project": {
+		"name": "zhuz",
+		"description": "",
+		"details": {
+			"variable": [],
+			"servers": [
+				{
+					"server_id": "default",
+					"name": "默认服务"
+				}
+			],
+			"markList": [
+				{
+					"key": "developing",
+					"name": "开发中",
+					"color": "#3A86FF",
+					"is_default": true
+				},
+				{
+					"key": "complated",
+					"name": "已完成",
+					"color": "#2BA58F",
+					"is_default": true
+				},
+				{
+					"key": "modifying",
+					"name": "需修改",
+					"color": "#EC4646",
+					"is_default": true
+				}
+			],
+			"script": {
+				"pre_script": "",
+				"test": ""
+			},
+			"request": {
+				"query": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				],
+				"header": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				]
+			}
+		}
+	},
+	"apis": [
+		{
+			"target_type": "folder",
+			"name": "超管级接口",
+			"mark": "developing",
+			"sort": 3,
+			"tags": [],
+			"request": {
+				"description": "需要用户鉴权且是admin超管",
+				"header": [
+					{
+						"description": "",
+						"field_type": "String",
+						"is_checked": 1,
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTaWQiOiI2IiwiUGFzc1ZlcnNpb24iOiIyIiwiZXhwIjoxNzAzNjUwNjI1LCJpc3MiOiJhcHAiLCJhdWQiOiJwZW9wbGUifQ.H5PXrS1fwF9gyHF9IKGIOtnv0F7GaOE-pUYEnJLbzJc",
+						"not_null": 1,
+						"type": "Text"
+					}
+				]
+			},
+			"children": [
+				{
+					"target_type": "folder",
+					"name": "用户模块",
+					"mark": "developing",
+					"sort": 1,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "冻结禁用某个账号",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/admin/disuser/:userId",
+							"request": {
+								"url": "{{net}}/user/admin/disuser/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"data\": null,\n\t\"message\": \"账号admin1112011211已被冻结!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"success\": false,\n\t\"code\": 1403,\n\t\"message\": \"拒绝访问，权限不足。\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查看所有账号信息",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/user/admin/readallusers",
+							"request": {
+								"url": "{{net}}/user/admin/readallusers",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"user_name\": \"root\",\n\t\t\t\"nick_name\": \"1112222\",\n\t\t\t\"id\": 6,\n\t\t\t\"avatar\": \"avatar/music_1703489584.png\",\n\t\t\t\"qq\": \"asd\",\n\t\t\t\"wechat\": \"string\",\n\t\t\t\"email\": \"string\",\n\t\t\t\"github\": \"string\",\n\t\t\t\"is_del\": false,\n\t\t\t\"created_at\": \"2023-12-25T10:15:51\",\n\t\t\t\"updated_at\": \"2023-12-25T10:15:51\"\n\t\t},\n\t\t{\n\t\t\t\"user_name\": \"admin\",\n\t\t\t\"nick_name\": \"admin\",\n\t\t\t\"id\": 7,\n\t\t\t\"avatar\": null,\n\t\t\t\"qq\": null,\n\t\t\t\"wechat\": null,\n\t\t\t\"email\": null,\n\t\t\t\"github\": null,\n\t\t\t\"is_del\": false,\n\t\t\t\"created_at\": \"2023-12-20T14:26:15\",\n\t\t\t\"updated_at\": \"2023-12-20T14:26:15\"\n\t\t},\n\t\t{\n\t\t\t\"user_name\": \"admin11120112111\",\n\t\t\t\"nick_name\": \"新用户\",\n\t\t\t\"id\": 8,\n\t\t\t\"avatar\": null,\n\t\t\t\"qq\": null,\n\t\t\t\"wechat\": null,\n\t\t\t\"email\": null,\n\t\t\t\"github\": null,\n\t\t\t\"is_del\": false,\n\t\t\t\"created_at\": \"2023-12-20T15:03:08\",\n\t\t\t\"updated_at\": \"2023-12-20T15:03:08\"\n\t\t},\n\t\t{\n\t\t\t\"user_name\": \"admin111201121111\",\n\t\t\t\"nick_name\": \"新用户\",\n\t\t\t\"id\": 9,\n\t\t\t\"avatar\": null,\n\t\t\t\"qq\": null,\n\t\t\t\"wechat\": null,\n\t\t\t\"email\": null,\n\t\t\t\"github\": null,\n\t\t\t\"is_del\": false,\n\t\t\t\"created_at\": \"2023-12-20T15:04:09\",\n\t\t\t\"updated_at\": \"2023-12-20T15:04:09\"\n\t\t},\n\t\t{\n\t\t\t\"user_name\": \"test\",\n\t\t\t\"nick_name\": \"新用户\",\n\t\t\t\"id\": 10,\n\t\t\t\"avatar\": null,\n\t\t\t\"qq\": null,\n\t\t\t\"wechat\": null,\n\t\t\t\"email\": null,\n\t\t\t\"github\": null,\n\t\t\t\"is_del\": false,\n\t\t\t\"created_at\": \"2023-12-25T15:55:10\",\n\t\t\t\"updated_at\": \"2023-12-25T15:55:10\"\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1401,\n\t\"data\": null,\n\t\"message\": \"非超管禁止访问!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "解冻某个账号",
+							"mark": "complated",
+							"sort": 4,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/admin/enbuser/:userId",
+							"request": {
+								"url": "{{net}}/user/admin/enbuser/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"success\": true,\n\t\"code\": 1200,\n\t\"message\": \"请求成功!\",\n\t\"data\": \"已成功解冻19账号!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "菜单模块",
+					"mark": "developing",
+					"sort": 3,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "添加一条菜单",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/menu/admin/addonemenu",
+							"request": {
+								"url": "{{net}}/menu/admin/addonemenu",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"menu_name\": \"系统管理1121\", // 菜单名称\r\n  \"description\": \"string\", // 描述\r\n  \"icon\": \"setting\", // 图标\r\n  \"uuid\": \"system112\", // uuid\r\n  \"parent_uuid\": \"\", // 父级uuid\r\n  \"order_num\": 3, // 排序\r\n  \"shown\": true, // 是否显示\r\n  \"is_cache\": false // 是否缓存\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"data\": {\n\t\t\"id\": 4,\n\t\t\"menu_name\": \"系统管理11\",\n\t\t\"description\": \"string\",\n\t\t\"icon\": \"setting\",\n\t\t\"uuid\": \"system11\",\n\t\t\"parent_uuid\": \"\",\n\t\t\"order_num\": 3,\n\t\t\"shown\": true,\n\t\t\"is_cache\": false,\n\t\t\"updatedAt\": \"2023-11-17T07:16:25.142Z\",\n\t\t\"createdAt\": \"2023-11-17T07:16:25.142Z\"\n\t},\n\t\"message\": \"添加成功!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 6,\n\t\t\"menu_name\": \"系统管理1121\",\n\t\t\"description\": \"string\",\n\t\t\"icon\": \"setting\",\n\t\t\"uuid\": \"system112\",\n\t\t\"parent_uuid\": \"\",\n\t\t\"order_num\": 3,\n\t\t\"shown\": true,\n\t\t\"is_cache\": false,\n\t\t\"created_at\": \"0001-01-01T00:00:00\",\n\t\t\"updated_at\": \"0001-01-01T00:00:00\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "为某角色批量更新菜单",
+							"mark": "complated",
+							"sort": 6,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/menu/admin/roleupdatemenus",
+							"request": {
+								"url": "{{net}}/menu/admin/roleupdatemenus",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"role_id\": 2,\r\n  \"menus_id\": [1,2,3]\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"更新了3条记录\",\n\t\"data\": \"\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"success\": false,\n\t\"code\": 1406,\n\t\"message\": \"该角色已存在此菜单,无需添加!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查找某角色拥有的菜单",
+							"mark": "complated",
+							"sort": 8,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/menu/admin/readroleallmenu/:roleId",
+							"request": {
+								"url": "{{net}}/menu/admin/readroleallmenu/:roleId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "form-data",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "roleId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"menu_name\": \"系统管理\",\n\t\t\t\"description\": \"一些内置的设置\",\n\t\t\t\"icon\": \"setting\",\n\t\t\t\"uuid\": \"system\",\n\t\t\t\"parent_uuid\": \"\",\n\t\t\t\"order_num\": 3,\n\t\t\t\"shown\": true,\n\t\t\t\"is_cache\": true,\n\t\t\t\"children\": [\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"用户管理\",\n\t\t\t\t\t\"description\": \"用户账号增删改查\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemusermana\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 1,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"菜单管理\",\n\t\t\t\t\t\"description\": \"菜单增删改查\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemmenus\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 6,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"角色管理\",\n\t\t\t\t\t\"description\": \"角色增删改查,并给角色分配菜单\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemcrolemanage\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 3,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "为某角色批量删除某些菜单",
+							"mark": "complated",
+							"sort": 7,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/menu/admin/roledelmenu",
+							"request": {
+								"url": "{{net}}/menu/admin/roledelmenu",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"role_id\": 2,\r\n  \"menus_id\": [1,3]\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"data\": 0,\n\t\"message\": \"0条菜单已被删除!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"data\": null,\n\t\"message\": \"超管拥有所有菜单权限,无需删除!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "修改一条菜单",
+							"mark": "complated",
+							"sort": 3,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/menu/admin/putmenu",
+							"request": {
+								"url": "{{net}}/menu/admin/putmenu",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"id\": 6, // 菜单id\r\n  \"menu_name\": \"sdfss\", // 菜单名称\r\n  \"description\": \"sdf\", // 描述\r\n  \"icon\": \"sdfa\", // 图标\r\n  \"uuid\": \"stringa\", // uuid\r\n  \"parent_uuid\": \"\", // 父级uuid\r\n  \"order_num\": 1, // 排序\r\n  \"shown\": false, // 是否显示\r\n  \"is_cache\": false // 是否缓存\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 6,\n\t\t\"menu_name\": \"sdfss\",\n\t\t\"description\": \"sdf\",\n\t\t\"icon\": \"sdfa\",\n\t\t\"uuid\": \"stringa\",\n\t\t\"parent_uuid\": \"\",\n\t\t\"order_num\": 1,\n\t\t\"shown\": false,\n\t\t\"is_cache\": false,\n\t\t\"created_at\": \"2023-12-27T11:47:13\",\n\t\t\"updated_at\": \"2023-12-27T11:47:13\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"message\": \"重复内容 'sdfs' \",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查找所有菜单",
+							"mark": "complated",
+							"sort": 5,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/menu/admin/findallmenu",
+							"request": {
+								"url": "{{net}}/menu/admin/findallmenu",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"menu_name\": \"系统管理\",\n\t\t\t\"description\": \"一些内置的设置\",\n\t\t\t\"icon\": \"setting\",\n\t\t\t\"uuid\": \"system\",\n\t\t\t\"parent_uuid\": \"\",\n\t\t\t\"order_num\": 3,\n\t\t\t\"shown\": true,\n\t\t\t\"is_cache\": true,\n\t\t\t\"children\": [\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"用户管理\",\n\t\t\t\t\t\"description\": \"用户账号增删改查\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemusermana\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 1,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"菜单管理\",\n\t\t\t\t\t\"description\": \"菜单增删改查\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemmenus\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 6,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"menu_name\": \"角色管理\",\n\t\t\t\t\t\"description\": \"角色增删改查,并给角色分配菜单\",\n\t\t\t\t\t\"icon\": \"setting\",\n\t\t\t\t\t\"uuid\": \"systemcrolemanage\",\n\t\t\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\t\t\"order_num\": 3,\n\t\t\t\t\t\"shown\": true,\n\t\t\t\t\t\"is_cache\": true,\n\t\t\t\t\t\"children\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查看一条菜单",
+							"mark": "complated",
+							"sort": 4,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/menu/admin/findmenu/:menuId",
+							"request": {
+								"url": "{{net}}/menu/admin/findmenu/:menuId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "menuId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "9"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 1,\n\t\t\"menu_name\": \"系统管理\",\n\t\t\"description\": \"一些内置的设置\",\n\t\t\"icon\": \"setting\",\n\t\t\"uuid\": \"system\",\n\t\t\"parent_uuid\": \"\",\n\t\t\"order_num\": 3,\n\t\t\"shown\": true,\n\t\t\"is_cache\": true,\n\t\t\"created_at\": \"2023-12-19T17:08:21\",\n\t\t\"updated_at\": \"2023-12-19T17:08:21\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"message\": \"未查询到菜单信息!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "删除一条菜单",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "DELETE",
+							"mock": "{}",
+							"mock_url": "/menu/admin/delonemenu/:menuId",
+							"request": {
+								"url": "{{net}}/menu/admin/delonemenu/:menuId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "menuId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 2,\n\t\t\"menu_name\": \"用户管理\",\n\t\t\"description\": \"用户账号增删改查\",\n\t\t\"icon\": \"setting\",\n\t\t\"uuid\": \"systemusermana\",\n\t\t\"parent_uuid\": \"system\",\n\t\t\"order_num\": 1,\n\t\t\"shown\": true,\n\t\t\"is_cache\": true,\n\t\t\"created_at\": \"2023-12-19T17:08:21\",\n\t\t\"updated_at\": \"2023-12-19T17:08:21\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"message\": \"未查询到菜单信息!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "角色模块",
+					"mark": "developing",
+					"sort": 2,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "查找所有角色信息",
+							"mark": "complated",
+							"sort": 5,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/role/admin/findallrole",
+							"request": {
+								"url": "{{net}}/role/admin/findallrole",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"role_name\": \"admin\"\n\t\t},\n\t\t{\n\t\t\t\"id\": 5,\n\t\t\t\"role_name\": \"普通用户dddddd\"\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "添加一个角色分类",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/role/admin/addrolecategory",
+							"request": {
+								"url": "{{net}}/role/admin/addrolecategory",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"role_name\": \"aaaa\" // 角色名称\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"success\": true,\n\t\"code\": 1200,\n\t\"message\": \"添加成功!\",\n\t\"data\": \"添加成功!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"success\": false,\n\t\"code\": 1406,\n\t\"message\": \"该角色分类已经存在,无需重复添加!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "删除某账号的某个角色",
+							"mark": "complated",
+							"sort": 7,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/role/admin/delroletheuser",
+							"request": {
+								"url": "{{net}}/role/admin/delroletheuser",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"user_id\": 7, // 用户id\r\n  \"role_id\": 5 // 角色id\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"删除成功!\",\n\t\"data\": {\n\t\t\"id\": 9,\n\t\t\"role_id\": 5,\n\t\t\"user_id\": 7\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"删除成功!\",\n\t\"data\": {\n\t\t\"id\": 9,\n\t\t\"role_id\": 5,\n\t\t\"user_id\": 7\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "修改一个角色分类",
+							"mark": "complated",
+							"sort": 3,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/role/admin/putrolecategory",
+							"request": {
+								"url": "{{net}}/role/admin/putrolecategory",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"role_id\": 5, // 角色id\r\n  \"role_name\": \"普通用户dddddd\" // 分类名称\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 1,\n\t\t\"role_name\": \"普通用户dddddd\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"data\": {\n\t\t\"id\": 4,\n\t\t\"role_name\": \"普通用户dddddd\"\n\t},\n\t\"message\": \"修改成功!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查找某用户拥有的角色",
+							"mark": "complated",
+							"sort": 8,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/role/admin/getuserallrole/:userId",
+							"request": {
+								"url": "{{net}}/role/admin/getuserallrole/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"query": {
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "",
+											"value": "",
+											"not_null": 1,
+											"type": "Text",
+											"static": true
+										}
+									]
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"role_name\": \"admin\"\n\t\t},\n\t\t{\n\t\t\t\"id\": 5,\n\t\t\t\"role_name\": \"普通用户dddddd\"\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "删除一个角色分类",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "DELETE",
+							"mock": "{}",
+							"mock_url": "/role/admin/removerolecategory/:roleId",
+							"request": {
+								"url": "{{net}}/role/admin/removerolecategory/:roleId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "roleId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"角色-地方-已被删除!\",\n\t\"data\": \"\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"message\": \"这是一个无效的角色!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "查找单个角色信息",
+							"mark": "complated",
+							"sort": 4,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/role/admin/findrole/:roleId",
+							"request": {
+								"url": "{{net}}/role/admin/findrole/:roleId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "form-data",
+									"parameter": [],
+									"raw": "",
+									"raw_para": []
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "roleId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 5,\n\t\t\"role_name\": \"普通用户dddddd\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "为某个账户添加某个角色",
+							"mark": "complated",
+							"sort": 6,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/role/admin/addroletheuser",
+							"request": {
+								"url": "{{net}}/role/admin/addroletheuser",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"user_id\": 7, // 用户id\r\n  \"role_id\": 5 // 角色id\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"id\": 9,\n\t\t\"role_id\": 5,\n\t\t\"user_id\": 7\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"target_type": "folder",
+			"name": "开放级接口",
+			"mark": "developing",
+			"sort": 1,
+			"tags": [],
+			"request": {
+				"description": "无需鉴权"
+			},
+			"children": [
+				{
+					"target_type": "folder",
+					"name": "用户模块",
+					"mark": "developing",
+					"sort": 1,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "注册",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/user/release/register",
+							"request": {
+								"url": "{{net}}/user/release/register",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n    \"username\": \"admin111201121111\", // 账号\r\n    \"password\": \"123456\", // 密码\r\n    \"repeat_password\": \"123456\", // 重复密码\r\n    \"code\": \"tt3\", // 验证码\r\n    \"uuid\": \"UmhSd9qTHF9qHxX\" // 会话id\r\n}\r\n// ```\r\n// 验证码是否有效,会话是否存在,验证码是否过期\r\n// 校验成功后存储加密后的账号密码\r\n// ```",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"注册成功!\",\n\t\"data\": {\n\t\t\"user_name\": \"root\",\n\t\t\"nick_name\": \"root\",\n\t\t\"id\": 1,\n\t\t\"avatar\": null,\n\t\t\"qq\": null,\n\t\t\"wechat\": null,\n\t\t\"email\": null,\n\t\t\"github\": null,\n\t\t\"is_del\": false,\n\t\t\"created_at\": \"2023-12-19T17:08:21\",\n\t\t\"updated_at\": \"2023-12-19T17:08:21\"\n\t}\n}",
+									"parameter": [
+										{
+											"key": "success",
+											"value": "true",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Boolean",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "code",
+											"value": "1200",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Integer",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "message",
+											"value": "请求成功!",
+											"description": "",
+											"not_null": 1,
+											"field_type": "String",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data",
+											"value": "",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Object",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.id",
+											"value": "16",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Integer",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.userName",
+											"value": "admin2",
+											"description": "",
+											"not_null": 1,
+											"field_type": "String",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.nikeName",
+											"value": "新用户",
+											"description": "",
+											"not_null": 1,
+											"field_type": "String",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.avatar",
+											"value": "null",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Null",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.qq",
+											"value": "null",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Null",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.wechat",
+											"value": "null",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Null",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.email",
+											"value": "null",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Null",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.github",
+											"value": "null",
+											"description": "",
+											"not_null": 1,
+											"field_type": "Null",
+											"type": "Text",
+											"is_checked": 1
+										},
+										{
+											"key": "data.updateTime",
+											"value": "2023-10-30T10:51:26.2224913+08:00",
+											"description": "",
+											"not_null": 1,
+											"field_type": "String",
+											"type": "Text",
+											"is_checked": 1
+										}
+									],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "获取验证码",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/user/release/getcaptcha",
+							"request": {
+								"url": "{{net}}/user/release/getcaptcha",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "登录",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/user/release/login",
+							"request": {
+								"url": "{{net}}/user/release/login",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n    \"username\": \"aaa\", // 账号\r\n    \"password\": \"aaa\", // 密码\r\n    \"code\": \"mad\", // 验证码\r\n    \"uuid\": \"vn9nzpr78CPC9ri\" // 会话id\r\n}\r\n// ```\r\n// 验证码是否有效,会话是否存在,验证码是否过期\r\n// 校验成功后检验用户是否存在,密码是否正确\r\n// 一切正确后返回token\r\n// ```",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"success\": true,\n\t\"code\": 1200,\n\t\"message\": \"请求成功!\",\n\t\"data\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxNiIsIlBhc3NWZXJzaW9uIjoiMSIsImV4cCI6MTY5ODY1NDQ0NCwiaXNzIjoiYXBwIiwiYXVkIjoicGVvcGxlIn0.wc1dZ3ymfxgQpOKuwI0aD70dgPTZMrhxdU_5Jh9G0t0\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"target_type": "folder",
+			"name": "SSS级接口",
+			"mark": "developing",
+			"sort": 4,
+			"tags": [],
+			"request": {
+				"description": "",
+				"header": [
+					{
+						"description": "",
+						"field_type": "String",
+						"is_checked": 1,
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTaWQiOiI2IiwiUGFzc1ZlcnNpb24iOiIyIiwiZXhwIjoxNzAzNTU5MzQ1LCJpc3MiOiJhcHAiLCJhdWQiOiJwZW9wbGUifQ.vjUCnrJGEgVhWI84j8u6ieaypmcAQd2hI04EkHzMfbo",
+						"not_null": 1,
+						"type": "Text"
+					}
+				]
+			},
+			"children": [
+				{
+					"target_type": "folder",
+					"name": "用户模块",
+					"mark": "developing",
+					"sort": 1,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "撤销某账号超管角色",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/root/revokeuseradmin/:userId",
+							"request": {
+								"url": "{{net}}/user/root/revokeuseradmin/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "9"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"已删除-admin111201121111-账号的超管权限!\",\n\t\"data\": \"\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"success\": false,\n\t\"code\": 1406,\n\t\"message\": \"该用户非超管,无需撤销!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "重置某账号密码",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/root/restuserpass/:userId",
+							"request": {
+								"url": "{{net}}/user/root/restuserpass/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "form-data",
+									"parameter": [],
+									"raw": "",
+									"raw_para": []
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"重置成功!!\",\n\t\"data\": \"123456\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "添加某账号超管角色",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/root/adduseradmin/:userId",
+							"request": {
+								"url": "{{net}}/user/root/adduseradmin/:userId",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "userId",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "9"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"添加成功,admin111201121111现已是超管权限。\",\n\t\"data\": \"\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"message\": \"未查询到此用户!\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "数据库管理",
+					"mark": "developing",
+					"sort": 2,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "创建数据库表",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/db/createbasetables/:secret",
+							"request": {
+								"url": "{{net}}/db/createbasetables/:secret",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "secret",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "88888888"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "添加数据库初始数据",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/db/initdbbasedata/:secret",
+							"request": {
+								"url": "{{net}}/db/initdbbasedata/:secret",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"resful": {
+									"parameter": [
+										{
+											"key": "secret",
+											"description": "",
+											"is_checked": 1,
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "88888888"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"target_type": "folder",
+			"name": "用户级接口",
+			"mark": "developing",
+			"sort": 1,
+			"tags": [],
+			"request": {
+				"description": "需要用户鉴权",
+				"header": [
+					{
+						"description": "",
+						"field_type": "String",
+						"is_checked": 1,
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTaWQiOiIxMSIsIlBhc3NWZXJzaW9uIjoiMSIsImV4cCI6MTcwMzczNDI5NSwiaXNzIjoiYXBwIiwiYXVkIjoicGVvcGxlIn0.RlEGDosl_KL49Zc_eWoj-jWo-tTV38lnaqXbX1uYO58",
+						"not_null": 1,
+						"type": "Text"
+					}
+				]
+			},
+			"children": [
+				{
+					"target_type": "folder",
+					"name": "用户模块",
+					"mark": "developing",
+					"sort": 1,
+					"tags": [],
+					"request": {
+						"description": "需要token"
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "获取当前用户信息",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/user/auth/getuserinfo",
+							"request": {
+								"url": "{{net}}/user/auth/getuserinfo",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": {\n\t\t\"user_name\": \"root\",\n\t\t\"nick_name\": \"root\",\n\t\t\"id\": 6,\n\t\t\"avatar\": null,\n\t\t\"qq\": null,\n\t\t\"wechat\": null,\n\t\t\"email\": null,\n\t\t\"github\": null,\n\t\t\"is_del\": false,\n\t\t\"created_at\": \"2023-12-20T14:26:15\",\n\t\t\"updated_at\": \"2023-12-20T14:26:15\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "修改头像",
+							"mark": "complated",
+							"sort": 3,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/auth/putavatar",
+							"request": {
+								"url": "{{net}}/user/auth/putavatar",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "form-data",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "avatar",
+											"value": [
+												"C:\\Users\\zzxuego\\Pictures\\nodel\\music.png"
+											],
+											"not_null": 1,
+											"type": "File",
+											"filename": "music.png",
+											"fileBase64": []
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "修改当前用户信息",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/auth/putuserinfo",
+							"request": {
+								"url": "{{net}}/user/auth/putuserinfo",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"nickName\": \"1112222\", // 网名\r\n  \"qq\": \"asd\",\r\n  \"wechat\": \"string\",\r\n  \"email\": \"string\",\r\n  \"github\": \"string\"\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"修改成功!\",\n\t\"data\": {\n\t\t\"user_name\": \"root\",\n\t\t\"nick_name\": \"1112222\",\n\t\t\"id\": 6,\n\t\t\"avatar\": null,\n\t\t\"qq\": \"asd\",\n\t\t\"wechat\": \"string\",\n\t\t\"email\": \"string\",\n\t\t\"github\": \"string\",\n\t\t\"is_del\": false,\n\t\t\"created_at\": \"2023-12-25T10:15:46\",\n\t\t\"updated_at\": \"2023-12-25T10:15:46\"\n\t}\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "修改密码",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "PUT",
+							"mock": "{}",
+							"mock_url": "/user/auth/putpassword",
+							"request": {
+								"url": "{{net}}/user/auth/putpassword",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n  \"oldPass\": \"123456\", // 旧密码\r\n  \"newPass\": \"123456\", // 新密码\r\n  \"confirmPass\": \"123456\" // 确认密码\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"success\": false,\n\t\"code\": 1406,\n\t\"message\": \"2次密码不一致\",\n\t\"data\": null\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "{\n\t\"code\": 1406,\n\t\"data\": null,\n\t\"message\": \"授权已更新,请重新登录!\"\n}",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "菜单模块",
+					"mark": "developing",
+					"sort": 3,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "获取当前用户的菜单",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/menu/auth/readcurrentusermenus",
+							"request": {
+								"url": "{{net}}/menu/auth/readcurrentusermenus",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"menu_name\": \"系统管理\",\n\t\t\t\"description\": \"一些内置的设置\",\n\t\t\t\"icon\": \"setting\",\n\t\t\t\"uuid\": \"system\",\n\t\t\t\"parent_uuid\": \"\",\n\t\t\t\"order_num\": 3,\n\t\t\t\"shown\": true,\n\t\t\t\"is_cache\": true,\n\t\t\t\"children\": null\n\t\t},\n\t\t{\n\t\t\t\"menu_name\": \"用户管理\",\n\t\t\t\"description\": \"用户账号增删改查\",\n\t\t\t\"icon\": \"setting\",\n\t\t\t\"uuid\": \"systemusermana\",\n\t\t\t\"parent_uuid\": \"system\",\n\t\t\t\"order_num\": 1,\n\t\t\t\"shown\": true,\n\t\t\t\"is_cache\": true,\n\t\t\t\"children\": null\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "角色模块",
+					"mark": "developing",
+					"sort": 2,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "获取当前用户的所有角色",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/role/auth/getcurrentuserrole",
+							"request": {
+								"url": "{{net}}/role/auth/getcurrentuserrole",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "{\n\t\"code\": 1200,\n\t\"message\": \"操作成功!\",\n\t\"data\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"role_name\": \"admin\"\n\t\t},\n\t\t{\n\t\t\t\"id\": 5,\n\t\t\t\"role_name\": \"普通用户dddddd\"\n\t\t}\n\t]\n}",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {
+											"type": "object"
+										}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"envs": [
+		{
+			"env_id": "-1",
+			"list": {},
+			"name": "默认环境",
+			"pre_url": "",
+			"pre_urls": {
+				"default": ""
+			}
+		},
+		{
+			"env_id": "-2",
+			"list": {},
+			"name": "Mock环境",
+			"pre_url": "https://console-mock.apipost.cn/mock/f6389009-a0a4-4378-9f31-7475538e0820/",
+			"pre_urls": {
+				"default": "https://console-mock.apipost.cn/mock/f6389009-a0a4-4378-9f31-7475538e0820/"
+			}
+		},
+		{
+			"env_id": "3b352d2c-3840-44d6-8bd4-00afaf78ca70",
+			"list": {
+				"koa": {
+					"current_value": "http://localhost:9090",
+					"type": "1",
+					"value": "http://localhost:9090",
+					"description": ""
+				},
+				"net": {
+					"current_value": "http://localhost:9091",
+					"type": "1",
+					"value": "http://localhost:9091",
+					"description": ""
+				}
+			},
+			"name": "127.0.0.1环境",
+			"pre_url": "",
+			"pre_urls": {
+				"default": ""
+			}
+		}
+	],
+	"models": []
+}
